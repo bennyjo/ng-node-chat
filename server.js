@@ -40,9 +40,9 @@ var server = http.createServer(function(request, response) {
 	var filePath = false;
 
 	if (request.url === '/'){
-		filePath = 'public/index.html';
+		filePath = 'build/index.html';
 	} else {
-		filePath = 'public' + request.url;
+		filePath = 'build' + request.url;
 	}
 
 	var absPath = './' + filePath;
