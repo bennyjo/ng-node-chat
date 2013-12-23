@@ -10,7 +10,7 @@ function divSystemContentElement(message) {
 
 function processUserInput(chatApp, socket) {
 	var message = $('#send-message').val()
-	  , systemMessage;
+	, systemMessage;
 
 	if (message[0] === '/') {
 		systemMessage = chatApp.processCommand(message);
@@ -63,7 +63,6 @@ $(document).ready(function() {
 	});
 
 	$('#room-list').on('click', 'div', function() {
-
 		chatApp.processCommand('/join ' + $(this).text());
 		$('#send-message').focus();
 	});
