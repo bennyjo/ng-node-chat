@@ -295,7 +295,9 @@ module.exports = function ( grunt ) {
         eqnull: true,
         laxcomma: true
       },
-      globals: {}
+      globals: {
+        angular: true
+      }
     },
 
     /**

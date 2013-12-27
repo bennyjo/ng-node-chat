@@ -1,4 +1,4 @@
-angular.module( 'ngNodeChat', [
+angular.module('ngNodeChat', [
   'templates-app',
   'templates-common',
   'ngBoilerplate.home',
