@@ -8,7 +8,7 @@ angular.module('ngNodeChat', [
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
-  $urlRouterProvider.otherwise( '/home' );
+  $urlRouterProvider.otherwise( '/chat' );
 })
 
 .run( function run () {
