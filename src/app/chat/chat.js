@@ -43,6 +43,12 @@ angular.module( 'ngBoilerplate.home', [
  * And of course we define a controller for our route.
  */
 .controller( 'ChatCtrl', function ChatController( $scope, chat, socket ) { 
+  $scope.messages = [];
+  $scope.channels = {
+    all: [],
+    current: 'Channel name'
+  };
+
   function divEscapedContentElement(message) {
     return $('<div></div>').text(message);
   }
@@ -69,8 +75,6 @@ angular.module( 'ngBoilerplate.home', [
     $('#send-message').val('');
   }
 
-  $scope.messages = [];
-
   socket.on('nameResult', function(result) {
     var message;
 
@@ -86,8 +90,10 @@ angular.module( 'ngBoilerplate.home', [
   });
 
   socket.on('joinResult', function(result) {
-    $('#room').text(result.room);
-    $('#messages').append(divSystemContentElement('Room changed.'));
+    $scope.$apply(function() {
+      $scope.messages.push({ text: 'Room changed.', isSystemMessage: true });
+      $scope.channels.current = result.room;
+    });
   });
 
   socket.on('message', function(message) {
@@ -97,14 +103,15 @@ angular.module( 'ngBoilerplate.home', [
   });
 
   socket.on('rooms', function(rooms) {
-    $('#room-list').empty();
+    var channels = Object.keys(rooms).map(function(room) {
+      return room.substring(1, room.length);
+    }).filter(function(room) {
+      return room.length;
+    });
 
-    for (var room in rooms) {
-      room = room.substring(1, room.length);
-      if (room !== '') {
-        $('#room-list').append(divSystemContentElement(room));
-      }
-    }
+    $scope.$apply(function() {
+      $scope.channels.all = channels;
+    });
   });
 
   $('#room-list').on('click', 'div', function() {
