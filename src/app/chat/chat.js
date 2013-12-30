@@ -73,7 +73,7 @@ angular.module( 'ngBoilerplate.home', [
 
   socket.on('message', function(message) {
     $scope.$apply(function() {
-      $scope.messages.push({ text: message, isUserMessage: true });
+      $scope.messages.push({ text: message.text, isUserMessage: true });
     });
   });
 
