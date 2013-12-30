@@ -6,15 +6,13 @@
         </div>
     </div>
     <div id='messages'>
-        <div ng-repeat-start="message in messages" ng-if='message.isUserMessage'>
-            <div ng-bind='message.text'></div>
-        </div>
-        <div ng-repeat-end ng-if="message.isSystemMessage">
-            <div><i ng-bind-html="message.text"></i></div>
+        <div ng-repeat="message in messages" >
+            <div ng-if='message.isUserMessage' ng-bind='message.text'></div>
+            <div ng-if='message.isSystemMessage' ng-bind-html='message.text'></div>
         </div>
     </div>
     <form ng-submit="submit()" id='send-form'>
-        <input id='send-message' />
+        <input id='send-message' ng-model='userInput' />
         <input id='send-button' type='submit' value='Send'/>
         <div id='help'>
             <ul>

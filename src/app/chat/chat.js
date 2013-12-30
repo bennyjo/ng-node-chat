@@ -44,36 +44,11 @@ angular.module( 'ngBoilerplate.home', [
  */
 .controller( 'ChatCtrl', function ChatController( $scope, chat, socket ) { 
   $scope.messages = [];
+  $scope.userInput = '';
   $scope.channels = {
     all: [],
     current: 'Channel name'
   };
-
-  function divEscapedContentElement(message) {
-    return $('<div></div>').text(message);
-  }
-
-  function divSystemContentElement(message) {
-    return $('<div></div>').html('<i>' + message + '</i>');
-  }
-  
-  function processUserInput(chatApp, socket) {
-    var message = $('#send-message').val()
-    , systemMessage;
-
-    if (message[0] === '/') {
-      systemMessage = chatApp.processCommand(message);
-      if (systemMessage) {
-        $('#messages').append(divSystemContentElement(systemMessage));
-      }
-    } else {
-      chatApp.sendMessage($('#room').text(), message);
-      $('#messages').append(divEscapedContentElement(message));
-      $('#messages').scrollTop($('#messages').prop('scrollHeight'));
-    }
-
-    $('#send-message').val('');
-  }
 
   socket.on('nameResult', function(result) {
     var message;
@@ -126,7 +101,21 @@ angular.module( 'ngBoilerplate.home', [
   $('#send-message').focus();
 
   $scope.submit = function() {
-    processUserInput(chat, socket);
+    var message = $scope.userInput
+      , systemMessage;
+
+    if (message[0] === '/') {
+      systemMessage = chat.processCommand(message);
+      if (systemMessage) {
+        $scope.messages.push({ text: systemMessage, isSystemMessage: true});
+      }
+    } else {
+      chat.sendMessage($scope.channels.current, message);
+      $scope.messages.push({ text: message, isUserMessage: true});
+      $('#messages').scrollTop($('#messages').prop('scrollHeight'));
+    }
+
+    $scope.userInput = '';
     return false;
   };
 });
