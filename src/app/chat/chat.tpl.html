@@ -2,10 +2,10 @@
     <div id='room'></div>
     <div id='room-list'></div>
     <div id='messages'>
-        <div ng-repeat-start="message in messages" ng-if='messsage.isSystemMessage'>
+        <div ng-repeat-start="message in messages" ng-if='message.isUserMessage'>
             <div ng-bind='message.text'></div>
         </div>
-        <div ng-repeat-end ng-if="message.isUserMessage">
+        <div ng-repeat-end ng-if="message.isSystemMessage">
             <div><i ng-bind-html="message.text"></i></div>
         </div>
     </div>

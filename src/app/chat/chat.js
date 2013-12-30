@@ -80,8 +80,8 @@ angular.module( 'ngBoilerplate.home', [
       message = result.message;
     }
 
-    $scope.apply(function() {
-      $scope.messages.push({ text: 'message', isSystemMessage: true });
+    $scope.$apply(function() {
+      $scope.messages.push({ text: message, isSystemMessage: true });
     });
   });
 
@@ -91,8 +91,9 @@ angular.module( 'ngBoilerplate.home', [
   });
 
   socket.on('message', function(message) {
-    var newElement = $('<div></div>').text(message.text);
-    $('#messages').append(newElement);
+    $scope.$apply(function() {
+      $scope.messages.push({ text: message, isUserMessage: true });
+    });
   });
 
   socket.on('rooms', function(rooms) {
