@@ -1,3 +1,9 @@
+/**
+* chatClient Module
+*
+* Description
+*/
+
 var Chat = function(socket) {
 	this.socket = socket;
 };
@@ -44,3 +50,6 @@ Chat.prototype.processCommand = function(command) {
 
 	return message;
 };
+
+angular.module('chatClient', [])
+	.service('chat', Chat);
