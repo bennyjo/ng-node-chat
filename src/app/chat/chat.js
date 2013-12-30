@@ -69,6 +69,8 @@ angular.module( 'ngBoilerplate.home', [
     $('#send-message').val('');
   }
 
+  $scope.messages = [];
+
   socket.on('nameResult', function(result) {
     var message;
 
@@ -78,7 +80,9 @@ angular.module( 'ngBoilerplate.home', [
       message = result.message;
     }
 
-    $('#messages').append(divSystemContentElement(message));
+    $scope.apply(function() {
+      $scope.messages.push({ text: 'message', isSystemMessage: true });
+    });
   });
 
   socket.on('joinResult', function(result) {
