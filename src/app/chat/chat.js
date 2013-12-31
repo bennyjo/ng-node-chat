@@ -19,8 +19,6 @@ angular.module( 'ngBoilerplate.home', [
   'chatClient'
 ])
 
-.value('socket', io.connect())
-
 /**
  * Each section or module of the site can also have its own routes. AngularJS
  * will handle ensuring they are all available at run-time, but splitting it
@@ -42,7 +40,9 @@ angular.module( 'ngBoilerplate.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'ChatCtrl', function ChatController( $scope, chat, socket ) { 
+.controller( 'ChatCtrl', function ChatController( $scope, Chat) { 
+  var socket = io.connect();
+  var chat = new Chat(socket);
   $scope.messages = [];
   $scope.userInput = '';
   $scope.channels = {
@@ -77,15 +77,15 @@ angular.module( 'ngBoilerplate.home', [
     });
   });
 
-  socket.on('rooms', function(rooms) {
-    var channels = Object.keys(rooms).map(function(room) {
-      return room.substring(1, room.length);
-    }).filter(function(room) {
-      return room.length;
+  socket.on('channels', function(channels) {
+    var channelNames = Object.keys(channels).map(function(channel) {
+      return channel.substring(1, channel.length);
+    }).filter(function(channel) {
+      return channel.length;
     });
 
     $scope.$apply(function() {
-      $scope.channels.all = channels;
+      $scope.channels.all = channelNames;
     });
   });
 
@@ -93,10 +93,6 @@ angular.module( 'ngBoilerplate.home', [
     chat.processCommand('/join ' + $(this).text());
     $('#send-message').focus();
   });
-
-  setInterval(function() {
-    socket.emit('rooms');
-  }, 1000);
 
   $('#send-message').focus();
 

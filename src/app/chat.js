@@ -52,4 +52,6 @@ Chat.prototype.processCommand = function(command) {
 };
 
 angular.module('chatClient', [])
-	.service('chat', Chat);
+	.factory('Chat', function(){
+		return Chat;
+	});
