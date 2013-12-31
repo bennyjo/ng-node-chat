@@ -1,10 +1,5 @@
 <div id='content'>
     <div id='room' ng-bind="channels.current"></div>
-    <div id='room-list'>
-        <div ng-repeat="channel in channels.all">
-            <div ng-bind='channel'></div>
-        </div>
-    </div>
     <div id='messages'>
         <div ng-repeat="message in messages" >
             <div ng-if='message.isUserMessage' ng-bind='message.text'></div>
