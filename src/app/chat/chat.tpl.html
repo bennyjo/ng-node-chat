@@ -1,19 +1,9 @@
-<div id='content'>
-    <div id='room' ng-bind="channels.current"></div>
-    <div id='messages'>
-        <div ng-repeat="message in messages" >
-            <div ng-if='message.isUserMessage' ng-bind='message.text'></div>
-            <div ng-if='message.isSystemMessage' ng-bind-html='message.text'></div>
-        </div>
+<div id='messages'>
+    <div ng-repeat="message in messages" >
+        <div ng-if='message.isUserMessage' ng-bind='message.text'></div>
+        <div ng-if='message.isSystemMessage' ng-bind-html='message.text'></div>
     </div>
-    <form ng-submit="submit()" id='send-form'>
-        <input id='send-message' ng-model='userInput' />
-        <input id='send-button' type='submit' value='Send'/>
-        <div id='help'>
-            <ul>
-                <li>Change nickname: <code>/nick [username]</code></li>
-                <li>Join/create room: <code>/join [room name]</code></li>
-            </ul>
-        </div>
-    </form>
 </div>
+<form ng-submit="submit()" id='send-form'>
+    <input id='send-message' ng-model='userInput' ng-focus />
+</form>

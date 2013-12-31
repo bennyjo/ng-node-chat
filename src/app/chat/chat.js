@@ -89,11 +89,6 @@ angular.module( 'ngBoilerplate.home', [
     });
   });
 
-  $('#room-list').on('click', 'div', function() {
-    chat.processCommand('/join ' + $(this).text());
-    $('#send-message').focus();
-  });
-
   $('#send-message').focus();
 
   $scope.submit = function() {
