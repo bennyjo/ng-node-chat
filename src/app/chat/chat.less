@@ -4,34 +4,42 @@
   margin-right: auto;
 }
 
-#room {
-  margin-bottom: 1em;
-}
-
 #messages {
   width: 100%;
   overflow: auto;
-  margin-bottom: 1em;
-  margin-right: 10px;
 }
-
-#room-list {
-  float: right;
-  width: 100px;
-  height: 300px;
-  overflow: auto;
+.input-line {
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  clear: both;
 }
-
-#room-list div {
-  border-bottom: 1px solid #eee;
+.input-line > div:nth-child(2) {
+  -webkit-box-flex: 1;
+  box-flex: 1;
 }
-
-#send-message {
+.prompt {
+  white-space: nowrap;
+  color: #ffcc00; /*green;*/
+  margin-right: 7px;
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-orient: vertical;
+  display: box;
+  box-pack: center;
+  box-orient: vertical;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.cmdline {
+  outline: none;
+  background-color: transparent;
+  margin: 0;
   width: 100%;
-  margin-bottom: 1em;
-  margin-right: 1em;
-}
-
-#help {
-  font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: inherit;
+  border: none;
+  color: inherit;
 }

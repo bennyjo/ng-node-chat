@@ -89,8 +89,6 @@ angular.module( 'ngBoilerplate.home', [
     });
   });
 
-  $('#send-message').focus();
-
   $scope.submit = function() {
     var message = $scope.userInput
       , systemMessage;
