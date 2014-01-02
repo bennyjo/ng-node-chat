@@ -66,7 +66,7 @@ angular.module( 'ngBoilerplate.home', [
 
   socket.on('joinResult', function(result) {
     $scope.$apply(function() {
-      $scope.messages.push({ text: 'Room changed.', isSystemMessage: true });
+      $scope.messages.push({ text: 'Channel changed.', isSystemMessage: true });
       $scope.channels.current = result.room;
     });
   });
