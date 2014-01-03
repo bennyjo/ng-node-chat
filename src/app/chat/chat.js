@@ -60,20 +60,20 @@ angular.module( 'ngBoilerplate.home', [
     }
 
     $scope.$apply(function() {
-      $scope.messages.push({ text: message, isSystemMessage: true });
+      $scope.messages.push({ text: message, type: 'systemMessage' });
     });
   });
 
   socket.on('joinResult', function(result) {
     $scope.$apply(function() {
-      $scope.messages.push({ text: 'Channel changed.', isSystemMessage: true });
+      $scope.messages.push({ text: 'Channel changed.', type: 'systemMessage' });
       $scope.channels.current = result.room;
     });
   });
 
   socket.on('message', function(message) {
     $scope.$apply(function() {
-      $scope.messages.push({ text: message.text, isUserMessage: true });
+      $scope.messages.push({ text: message.text, type: 'userMessage' });
     });
   });
 
@@ -91,18 +91,27 @@ angular.module( 'ngBoilerplate.home', [
 
   $scope.submit = function() {
     var message = $scope.userInput
+      , messageSplitByColon = $scope.userInput.split(':')
+      , isSpotifyTrack = messageSplitByColon[0] === 'spotify' &&  messageSplitByColon[1] === 'track'
       , systemMessage;
 
     if (message[0] === '/') {
       systemMessage = chat.processCommand(message);
       if (systemMessage) {
-        $scope.messages.push({ text: systemMessage, isSystemMessage: true});
+        $scope.messages.push({ text: systemMessage, type: 'systemMessage'});
       }
-    } else {
+    }
+    else if (isSpotifyTrack) {
+      //chat.sendMessage($scope.channels.current, message);
+      $scope.messages.push({ text: messageSplitByColon[2], type: 'spotifyTrack'});
+    }
+     else {
       chat.sendMessage($scope.channels.current, message);
-      $scope.messages.push({ text: message, isUserMessage: true});
+      $scope.messages.push({ text: message, type: 'userMessage'});
       $('#messages').scrollTop($('#messages').prop('scrollHeight'));
     }
+
+    console.log($scope.messages);
 
     $scope.userInput = '';
     return false;

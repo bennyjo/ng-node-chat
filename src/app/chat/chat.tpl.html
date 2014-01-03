@@ -1,7 +1,16 @@
 <div id='messages'>
-    <div ng-repeat="message in messages" >
-        <div ng-if='message.isUserMessage' ng-bind='message.text'></div>
-        <div ng-if='message.isSystemMessage' ng-bind-html='message.text'></div>
+    <div ng-repeat="message in messages">
+
+        <div ng-switch on="message.type">
+            <div ng-switch-when='userMessage'>{{message.text}}</div>
+            <div ng-switch-when='systemMessage'>{{message.text}}</div>
+            <div ng-switch-when="spotifyTrack">
+                <iframe ng-src="https://embed.spotify.com/?uri=spotify:track:{{message.text}}" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+            </div>
+            <div ng-switch-default>
+                watman
+            </div>
+        </div>
     </div>
 </div>
 <form ng-submit="submit()" class="input-line">
