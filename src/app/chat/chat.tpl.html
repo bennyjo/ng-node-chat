@@ -4,6 +4,7 @@
         <div ng-switch on="message.type">
             <div ng-switch-when='userMessage'>{{message.text}}</div>
             <div ng-switch-when='systemMessage'>{{message.text}}</div>
+            <div ng-switch-when="image"><image ng-src="{{message.text}}" /></div>
             <div ng-switch-when="spotifyTrack">
                 <iframe ng-src="https://embed.spotify.com/?uri=spotify:track:{{message.text}}" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
             </div>

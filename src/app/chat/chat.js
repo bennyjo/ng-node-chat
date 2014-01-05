@@ -91,9 +91,13 @@ angular.module( 'ngBoilerplate.home', [
 
   $scope.submit = function() {
     var message = $scope.userInput
-      , messageSplitByColon = $scope.userInput.split(':')
+      , messageSplitByColon = message.split(':')
       , isSpotifyTrack = messageSplitByColon[0] === 'spotify' &&  messageSplitByColon[1] === 'track'
+      , isImageRegExp = new RegExp("(?:[a-z\\-]+\\.)+[a-z]{2,6}(?:/[^/#?]+)+\\.(?:jpg|gif|png)$")
+      , isImage = isImageRegExp.test(message)
       , systemMessage;
+
+    console.log(isImage);
 
     if (message[0] === '/') {
       systemMessage = chat.processCommand(message);
@@ -105,7 +109,10 @@ angular.module( 'ngBoilerplate.home', [
       //chat.sendMessage($scope.channels.current, message);
       $scope.messages.push({ text: messageSplitByColon[2], type: 'spotifyTrack'});
     }
-     else {
+    else if (isImage) {
+      $scope.messages.push({ text: message, type: 'image'});
+    }
+    else {
       chat.sendMessage($scope.channels.current, message);
       $scope.messages.push({ text: message, type: 'userMessage'});
       $('#messages').scrollTop($('#messages').prop('scrollHeight'));
