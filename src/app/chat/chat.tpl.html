@@ -1,12 +1,11 @@
 <div id='messages'>
     <div ng-repeat="message in messages">
-
         <div ng-switch on="message.type">
-            <div ng-switch-when='userMessage'>{{message.text}}</div>
-            <div ng-switch-when='systemMessage'>{{message.text}}</div>
-            <div ng-switch-when="image"><image ng-src="{{message.text}}" /></div>
+            <div ng-switch-when='userMessage'>{{message.sender}}: {{message.content}}</div>
+            <div ng-switch-when='systemMessage'>{{message.content}}</div>
+            <div ng-switch-when="image">{{message.sender}}: <image ng-src="{{message.content}}" /></div>
             <div ng-switch-when="spotifyTrack">
-                <iframe ng-src="https://embed.spotify.com/?uri=spotify:track:{{message.text}}" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+                {{message.sender}}: <iframe ng-src="https://embed.spotify.com/?uri=spotify:track:{{message.content}}" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
             </div>
             <div ng-switch-default>
                 watman

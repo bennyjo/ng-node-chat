@@ -43,6 +43,7 @@ angular.module( 'ngBoilerplate.home', [
 .controller( 'ChatCtrl', function ChatController( $scope, Chat) { 
   var socket = io.connect();
   var chat = new Chat(socket);
+  var userName = '';
   $scope.messages = [];
   $scope.userInput = '';
   $scope.channels = {
@@ -55,25 +56,26 @@ angular.module( 'ngBoilerplate.home', [
 
     if (result.success) {
       message = 'You are known as ' + result.name + '.';
+      userName = result.name;
     } else {
       message = result.message;
     }
 
     $scope.$apply(function() {
-      $scope.messages.push({ text: message, type: 'systemMessage' });
+      $scope.messages.push({ content: message, type: 'systemMessage' });
     });
   });
 
   socket.on('joinResult', function(result) {
     $scope.$apply(function() {
-      $scope.messages.push({ text: 'Channel changed.', type: 'systemMessage' });
+      $scope.messages.push({ content: 'Channel changed.', type: 'systemMessage' });
       $scope.channels.current = result.room;
     });
   });
 
   socket.on('message', function(message) {
     $scope.$apply(function() {
-      $scope.messages.push({ text: message.text, type: 'userMessage' });
+      $scope.messages.push(message);
     });
   });
 
@@ -90,36 +92,34 @@ angular.module( 'ngBoilerplate.home', [
   });
 
   $scope.submit = function() {
-    var message = $scope.userInput
-      , messageSplitByColon = message.split(':')
+    var userInput = $scope.userInput
+      , currentChannel = $scope.channels.current
+      , messageSplitByColon = userInput.split(':')
       , isSpotifyTrack = messageSplitByColon[0] === 'spotify' &&  messageSplitByColon[1] === 'track'
       , isImageRegExp = new RegExp("(?:[a-z\\-]+\\.)+[a-z]{2,6}(?:/[^/#?]+)+\\.(?:jpg|gif|png)$")
-      , isImage = isImageRegExp.test(message)
+      , isImage = isImageRegExp.test(userInput)
       , systemMessage;
 
-    console.log(isImage);
-
-    if (message[0] === '/') {
-      systemMessage = chat.processCommand(message);
+    if (userInput[0] === '/') {
+      systemMessage = chat.processCommand(userInput);
       if (systemMessage) {
-        $scope.messages.push({ text: systemMessage, type: 'systemMessage'});
+        $scope.messages.push({ content: systemMessage, type: 'systemMessage'});
       }
     }
     else if (isSpotifyTrack) {
-      //chat.sendMessage($scope.channels.current, message);
-      $scope.messages.push({ text: messageSplitByColon[2], type: 'spotifyTrack'});
+      chat.sendMessage(currentChannel, userInput, 'spotifyTrack');
+      $scope.messages.push({ sender: userName, content: messageSplitByColon[2], type: 'spotifyTrack'});
     }
     else if (isImage) {
-      $scope.messages.push({ text: message, type: 'image'});
+      chat.sendMessage(currentChannel, userInput, 'image');
+      $scope.messages.push({ sender: userName, content: userInput, type: 'image'});
     }
     else {
-      chat.sendMessage($scope.channels.current, message);
-      $scope.messages.push({ text: message, type: 'userMessage'});
-      $('#messages').scrollTop($('#messages').prop('scrollHeight'));
+      chat.sendMessage(currentChannel, userInput);
+      $scope.messages.push({ sender: userName, content: userInput, type: 'userMessage'});
     }
 
-    console.log($scope.messages);
-
+    $('#messages').scrollTop($('#messages').prop('scrollHeight'));
     $scope.userInput = '';
     return false;
   };
