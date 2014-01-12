@@ -1,9 +1,9 @@
 <div id='messages'>
     <div ng-repeat="message in messages">
         <div ng-switch on="message.type">
-            <div ng-switch-when='userMessage'>{{message.sender}}: {{message.content}}</div>
+            <div ng-switch-when='userMessage'><div class="sender">{{message.sender}} : </div><div class="content" hljs source="message.content"></div></div>
             <div ng-switch-when='systemMessage'>{{message.content}}</div>
-            <div ng-switch-when="image">{{message.sender}}: <image ng-src="{{message.content}}" /></div>
+            <div ng-switch-when="image">{{message.sender}}<image ng-src="{{message.content}}" /></div>
             <div ng-switch-when="spotifyTrack">
                 {{message.sender}}: <iframe ng-src="https://embed.spotify.com/?uri=spotify:track:{{message.content}}" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
             </div>

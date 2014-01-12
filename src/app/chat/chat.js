@@ -16,7 +16,8 @@
  */
 angular.module( 'ngBoilerplate.home', [
   'ui.state',
-  'chatClient'
+  'chatClient',
+  'hljs'
 ])
 
 /**

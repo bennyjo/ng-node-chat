@@ -68,9 +68,12 @@ module.exports = {
       'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-ui-utils/modules/route/route.js',
-      'vendor/socket.io-client/dist/socket.io.js'
+      'vendor/socket.io-client/dist/socket.io.js',
+      'vendor/highlightjs/highlight.pack.js',
+      'vendor/angular-highlightjs/angular-highlightjs.js'
     ],
     css: [
+      'vendor/highlightjs/styles/default.css',
     ],
     assets: [
     ]
