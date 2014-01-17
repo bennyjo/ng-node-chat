@@ -3,7 +3,7 @@ angular.module('ngNodeChat', [
   'templates-common',
   'ngBoilerplate.home',
   'ngBoilerplate.about',
-  'ui.state',
+  'ui.router',
   'ui.route'
 ])
 

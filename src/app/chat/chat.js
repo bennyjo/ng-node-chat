@@ -15,7 +15,7 @@
  * specified, as shown below.
  */
 angular.module( 'ngBoilerplate.home', [
-  'ui.state',
+  'ui.router',
   'chatClient',
   'hljs'
 ])
@@ -92,7 +92,8 @@ angular.module( 'ngBoilerplate.home', [
     });
   });
 
-  $scope.submit = function() {
+  $scope.submit = function(event) {
+
     var userInput = $scope.userInput
       , currentChannel = $scope.channels.current
       , messageSplitByColon = userInput.split(':')

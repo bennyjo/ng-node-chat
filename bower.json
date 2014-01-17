@@ -2,16 +2,15 @@
   "name": "ng-node-chat",
   "version": "0.0.1",
   "devDependencies": {
-    "angular": "~1.0.7",
-    "angular-mocks": "~1.0.7",
-    "bootstrap": "~2.3.2",
-    "angular-bootstrap": "~0.3.0",
-    "angular-ui-router": "~0.0.1",
-    "angular-ui-utils": "~0.0.3"
+    "angular-mocks": "latest"
   },
   "dependencies": {
-    "socket.io-client": "~0.9.16",
-    "jquery": "~2.0.3",
-    "angular-highlightjs": "~0.1.3"
+    "angular": "latest",
+    "angular-ui-router": "latest",
+    "angular-ui-utils": "latest",
+    "angular-highlightjs": "latest",
+    "bootstrap": "latest",
+    "socket.io-client": "latest",
+    "angular-bootstrap": "~0.10.0"
   }
 }
