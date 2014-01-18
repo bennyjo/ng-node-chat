@@ -93,6 +93,9 @@ angular.module( 'ngBoilerplate.home', [
   });
 
   $scope.submit = function(event) {
+    if (event.which !== 13) {
+      return;
+    } 
 
     var userInput = $scope.userInput
       , currentChannel = $scope.channels.current
